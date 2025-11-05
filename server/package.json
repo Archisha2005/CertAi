@@ -1,0 +1,39 @@
+{
+  "name": "certai-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development tsx server/index.ts",
+    "build": "tsc -p .",
+    "start": "node ./dist/index.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cookie-parser": "^1.4.6",
+    "express-session": "^1.17.3",
+    "connect-pg-simple": "^8.0.0",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "bcryptjs": "^2.4.3",
+    "pg": "^8.11.0",
+    "drizzle-orm": "^1.0.0",
+    "drizzle-orm/pg-core": "^1.0.0",
+    "zod": "^3.21.4",
+    "nanoid": "^4.0.2",
+    "dotenv": "^16.0.3",
+    "cors": "^2.8.5",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "tsx": "^3.12.7",
+    "typescript": "^5.6.2",
+    "@types/express": "^4.17.17",
+    "@types/cookie-parser": "^1.4.3",
+    "@types/express-session": "^1.17.5",
+    "@types/node": "^20.4.2",
+    "@types/passport-local": "^1.0.34",
+    "@types/multer": "^1.4.7"
+  }
+}

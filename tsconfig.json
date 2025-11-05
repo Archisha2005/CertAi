@@ -1,0 +1,45 @@
+{
+  "include": [
+    "client/src/**/*",
+    "server/**/*",
+    "shared/**/*"
+, "server/.storage-interface.ts"  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist",
+    "**/*.test.ts"
+  ],
+  "compilerOptions": {
+    /* Output & Build */
+    "incremental": true,
+    "tsBuildInfoFile": "./node_modules/typescript/tsbuildinfo",
+    "noEmit": true,
+
+    /* Language & Module System */
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+
+    /* Strictness & Checking */
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+
+    /* JSX & DOM Support */
+    "jsx": "preserve",
+    "lib": ["esnext", "dom", "dom.iterable"],
+
+    /* Aliases (important for imports) */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["client/src/*"],
+      "@shared/*": ["shared/*"]
+    },
+
+    /* Types for Node and Vite */
+    "types": ["node", "vite/client"]
+  }
+}
