@@ -1,11 +1,16 @@
 {
-  "extends": "./tsconfig.json",
   "compilerOptions": {
-    "noEmit": false,
+    "target": "ESNext",
+    "module": "ESNext",
+    "rootDir": "./server",
     "outDir": "./dist/server",
-    "rootDir": "./",
-    "types": ["node"],   // Only Node types for the backend
-    "skipLibCheck": true
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": false,
+    "skipLibCheck": true,
+    "types": ["node"],
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "server/**/*",
@@ -13,6 +18,7 @@
   ],
   "exclude": [
     "client",
+    "vite.config.ts",
     "node_modules",
     "dist",
     "build"
