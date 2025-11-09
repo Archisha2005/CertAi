@@ -3,8 +3,7 @@ import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
 /**
- * IMPORTANT:
- * All certificate types and statuses are UPPERCASE
+ * All certificate types and statuses are uppercase
  * to match frontend usage and shared typings.
  */
 
@@ -82,38 +81,39 @@ export const certificates = pgTable("certificates", {
 });
 
 // -------------------- ZOD SCHEMAS --------------------
+// The explicit "as const" cast fixes Drizzle-Zod inference issues
 export const insertUserSchema = createInsertSchema(users).pick({
-  username: true,
-  password: true,
-  fullName: true,
-  email: true,
-  mobile: true,
-  aadhaar: true,
-  address: true,
+  username: true as const,
+  password: true as const,
+  fullName: true as const,
+  email: true as const,
+  mobile: true as const,
+  aadhaar: true as const,
+  address: true as const,
 });
 
 export const insertDocumentSchema = createInsertSchema(documents).pick({
-  userId: true,
-  documentType: true,
-  fileName: true,
-  fileData: true,
+  userId: true as const,
+  documentType: true as const,
+  fileName: true as const,
+  fileData: true as const,
 });
 
 export const insertApplicationSchema = createInsertSchema(applications).pick({
-  userId: true,
-  certificateType: true,
-  applicationId: true,
-  formData: true,
-  documentIds: true,
+  userId: true as const,
+  certificateType: true as const,
+  applicationId: true as const,
+  formData: true as const,
+  documentIds: true as const,
 });
 
 export const insertCertificateSchema = createInsertSchema(certificates).pick({
-  userId: true,
-  applicationId: true,
-  certificateId: true,
-  certificateType: true,
-  validUntil: true,
-  certificateData: true,
+  userId: true as const,
+  applicationId: true as const,
+  certificateId: true as const,
+  certificateType: true as const,
+  validUntil: true as const,
+  certificateData: true as const,
 });
 
 // -------------------- TYPES --------------------

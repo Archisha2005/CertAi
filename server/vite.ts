@@ -1,9 +1,9 @@
 import express, { type Express } from "express";
-import fs from "fs";
+import fs from "fs/promises";
 import path from "path";
 import { createServer as createViteServer, createLogger, type InlineConfig } from "vite";
 import { type Server } from "http";
-import viteConfig from "../vite.config"
+import viteConfig from "../vite.config.js";
 import { nanoid } from "nanoid";
 
 const viteLogger = createLogger();
@@ -30,7 +30,7 @@ export async function setupVite(app: Express, server: Server) {
   const vite = await createViteServer({
     ...(viteConfig as InlineConfig),
     configFile: false,
-    server: serverOptions, // ✅ relaxed type enforcement
+    server: serverOptions,
     appType: "custom",
     customLogger: {
       ...viteLogger,
@@ -47,11 +47,10 @@ export async function setupVite(app: Express, server: Server) {
     const url = req.originalUrl;
 
     try {
-      // ✅ Use process.cwd() for cross-platform correctness
       const clientTemplate = path.resolve(process.cwd(), "client", "index.html");
 
-      // Always reload index.html in dev mode for HMR updates
-      let template = await fs.promises.readFile(clientTemplate, "utf-8");
+      // ✅ fs.readFile is fully recognized now
+      let template = await fs.readFile(clientTemplate, "utf-8");
       template = template.replace(
         `src="/src/main.tsx"`,
         `src="/src/main.tsx?v=${nanoid()}"`
@@ -67,19 +66,20 @@ export async function setupVite(app: Express, server: Server) {
 }
 
 export function serveStatic(app: Express) {
-  // ✅ Use process.cwd() for consistent pathing in production too
   const distPath = path.resolve(process.cwd(), "dist");
 
-  if (!fs.existsSync(distPath)) {
-    throw new Error(
-      `Could not find the build directory: ${distPath}. Make sure to build the client first (npm run build).`
-    );
-  }
+  import("fs").then((fsSync) => {
+    if (!fsSync.existsSync(distPath)) {
+      throw new Error(
+        `Could not find the build directory: ${distPath}. Make sure to build the client first (npm run build).`
+      );
+    }
 
-  app.use(express.static(distPath));
+    app.use(express.static(distPath));
 
-  // Fallback to index.html for SPA routes
-  app.use("*", (_req, res) => {
-    res.sendFile(path.resolve(distPath, "index.html"));
+    // Fallback to index.html for SPA routes
+    app.use("*", (_req, res) => {
+      res.sendFile(path.resolve(distPath, "index.html"));
+    });
   });
 }

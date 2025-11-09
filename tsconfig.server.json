@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "ESNext",
-    "rootDir": "./server",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "rootDir": "./",
     "outDir": "./dist/server",
-    "moduleResolution": "Node",
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "strict": false,
     "skipLibCheck": true,
-    "types": ["node"],
-    "allowSyntheticDefaultImports": true
+    "types": ["node"]
   },
   "include": [
     "server/**/*",

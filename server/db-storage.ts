@@ -19,7 +19,7 @@ import {
   type Application,
   type Certificate,
 } from "../shared/schema";
-import type { IStorage } from "./storage";
+import type { IStorage } from "./storage.js";
 
 const MemoryStore = createMemoryStore(session);
 
